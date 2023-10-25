@@ -21,8 +21,8 @@ class PepParsePipeline:
         file_time = dt.datetime.now().strftime(DATETIME_FORMAT)
         file_path = BASE_DIR / RESULTS_DIR / FILE_NAME.format(
             file_time=file_time)
-        with open(file_path, 'w', encoding='utf-8') as f:
-            writer = csv.writer(f)
+        with open(file_path, 'w', encoding='utf-8') as file:
+            writer = csv.writer(file)
             writer.writerow(HEAD_TABLE)
             writer.writerows(self.status_count.items())
             writer.writerow([TOTAL_COUNT, sum(self.status_count.values())])

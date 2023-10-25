@@ -1,18 +1,21 @@
-import scrapy
 import re
 
+import scrapy
+
 from pep_parse.items import PepParseItem
+from pep_parse.settings import ALLOWED_DOMAINS, START_URLS
 
 
 class PepSpider(scrapy.Spider):
     name = 'pep'
-    allowed_domains = ['peps.python.org']
-    start_urls = ['https://peps.python.org/']
+    allowed_domains = ALLOWED_DOMAINS
+    start_urls = START_URLS
 
     def parse(self, response):
         all_peps = response.css(
             'a.pep.reference.internal::attr(href)').getall()
         for pep_link in all_peps:
+            pep_link += '/'
             yield response.follow(pep_link, callback=self.parse_pep)
 
     def parse_pep(self, response):

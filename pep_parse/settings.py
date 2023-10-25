@@ -1,7 +1,12 @@
+from pep_parse.constants import PIPELINE_PRIORITY
+
 BOT_NAME = 'pep_parse'
 
 SPIDER_MODULES = ['pep_parse.spiders']
 NEWSPIDER_MODULE = 'pep_parse.spiders'
+
+ALLOWED_DOMAINS = ['peps.python.org']
+START_URLS = ['https://peps.python.org/']
 
 
 ROBOTSTXT_OBEY = True
@@ -15,5 +20,5 @@ FEEDS = {
 }
 
 ITEM_PIPELINES = {
-    'pep_parse.pipelines.PepParsePipeline': 300,
+    'pep_parse.pipelines.PepParsePipeline': PIPELINE_PRIORITY,
 }
